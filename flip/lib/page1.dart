@@ -93,7 +93,8 @@ class _Page1State extends State<Page1> {
               ),
             ),
             Container(
-              height: 695,
+              // height: 695,
+              height: 800,
               width: double.infinity,
               padding: EdgeInsets.only(left: 10, right: 10),
               // color: Colors.red,

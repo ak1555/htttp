@@ -12,6 +12,8 @@ class _Page2State extends State<Page2> {
   // int indx = 7;
   final mybox = Hive.box('mybox');
   List product = [];
+  bool cart = false;
+  bool shop = false;
 
   void getdata() {
     setState(() {
@@ -36,7 +38,7 @@ class _Page2State extends State<Page2> {
         child: Column(
           children: [
             Container(
-              height: 85,
+              height: 80,
               width: double.infinity,
               padding: EdgeInsets.only(left: 15, right: 15),
               decoration: BoxDecoration(
@@ -48,8 +50,8 @@ class _Page2State extends State<Page2> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Container(
-                    height: 45,
-                    width: 45,
+                    height: 44,
+                    width: 44,
                     decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 214, 211, 211),
                         borderRadius: BorderRadius.circular(100),
@@ -89,9 +91,23 @@ class _Page2State extends State<Page2> {
                   Container(
                     height: 250,
                     width: double.infinity,
-                    padding: EdgeInsets.only(left: 15, right: 15),
-                    child: Image.network(product[indx]["images"][0]),
+                    padding: EdgeInsets.only(left: 18, right: 15),
+                    margin: EdgeInsets.only(left: 15,right: 15),
+                    // child: Image.network(product[indx]["thumbnail"]),
+                     child: Expanded(child: ListView.builder(
+                      itemCount: product[indx]["images"].length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                      return Container(
+                        height: 270,
+                        width: 280,
+                        color: Colors.white,
+                        margin: EdgeInsets.only(left: 10,right: 10),
+                        child: Image.network(product[indx]["images"][index],fit: BoxFit.contain,),
+                      );
+                    },)),
                   ),
+                  SizedBox(height: 15,),
                   Container(
                       height: 20,
                       width: double.infinity,
@@ -102,11 +118,12 @@ class _Page2State extends State<Page2> {
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 18),
                       )),
+                  SizedBox(height: 15),
                   Container(
                     height: 30,
                     width: double.infinity,
                     // alignment: Alignment.center,
-                    padding: EdgeInsets.only(left: 15, right: 15),
+                    padding: EdgeInsets.only(left: 18, right: 15),
                     child: Row(
                       children: [
                         // Icon(Icons.currency_rupee_rounded,size: 17,),
@@ -144,7 +161,7 @@ class _Page2State extends State<Page2> {
                       height: 20,
                       width: double.infinity,
                       // alignment: Alignment.center,
-                      padding: EdgeInsets.only(left: 15, right: 15),
+                      padding: EdgeInsets.only(left: 18, right: 15),
                       child: Text(product[indx]["category"])),
                   SizedBox(
                     height: 10,
@@ -153,8 +170,8 @@ class _Page2State extends State<Page2> {
                       height: 20,
                       width: double.infinity,
                       // alignment: Alignment.center,
-                      padding: EdgeInsets.only(left: 15, right: 15),
-                      child: Text(product[indx]["brand"])),
+                      padding: EdgeInsets.only(left: 18, right: 15),
+                      child:product[indx]["brand"]!=null? Text(product[indx]["brand"]):Text("Food Materials",style: TextStyle(),)),
                   SizedBox(
                     height: 10,
                   ),
@@ -267,7 +284,7 @@ class _Page2State extends State<Page2> {
                       // height: 57,
                       width: double.infinity,
                       // alignment: Alignment.center,
-                      padding: EdgeInsets.only(left: 15, right: 15),
+                      padding: EdgeInsets.only(left: 18, right: 15),
                       child: Text(
                         product[indx]["availabilityStatus"],
                         style: TextStyle(fontSize: 13.5),
@@ -280,7 +297,7 @@ class _Page2State extends State<Page2> {
                       // height: 57,
                       width: double.infinity,
                       // alignment: Alignment.center,
-                      padding: EdgeInsets.only(left: 15, right: 15),
+                      padding: EdgeInsets.only(left: 18, right: 15),
                       child: Text(
                         product[indx]["description"],
                         style: TextStyle(fontSize: 13.5),
@@ -293,31 +310,113 @@ class _Page2State extends State<Page2> {
                       // height: 57,
                       width: double.infinity,
                       // alignment: Alignment.center,
-                      padding: EdgeInsets.only(left: 15, right: 15),
+                      padding: EdgeInsets.only(left: 18, right: 15),
                       child: Text(
                         "Stock Left: ${product[indx]["stock"].toString()}",
                         style: TextStyle(fontSize: 13.5),
                         maxLines: 3,
                       )),
+                  SizedBox(height: 10,),
+                  Container(
+                      // height: 57,
+                      width: double.infinity,
+                      // alignment: Alignment.center,
+                      padding: EdgeInsets.only(left: 18, right: 15),
+                      child: Text(
+                        "Return Policy: ${product[indx]["returnPolicy"]}",
+                        style: TextStyle(fontSize: 13.5),
+                        maxLines: 3,
+                      )),
+                  // SizedBox(height: 10),
+                  // Text("   Related Images",style: TextStyle(fontSize: 18),),
+                  // Container(
+                  //   height: 210,
+                  //   width: double.infinity,
+                  //   // color: Colors.pink,
+                   
+                  // ),
+                  SizedBox(height: 10,),
+                   Text("   Reviews:",style: TextStyle(fontSize: 18),),
+                   Container(
+                      height: 300,
+                      width: double.infinity,
+                      // alignment: Alignment.center,
+                      padding: EdgeInsets.only(left: 20, right: 15),
+                      child: Expanded(child: ListView.builder(
+                        itemCount: product[indx]["reviews"].length,
+                        itemBuilder: (context, index) {
+                        return Container(
+                          margin: EdgeInsets.only(top: 10,bottom: 10),
+                          padding: EdgeInsets.only(left: 10),
+                          decoration: BoxDecoration(
+                            border: Border.all(width: 0.02),
+                            borderRadius: BorderRadius.circular(8)
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(product[indx]["reviews"][index]["reviewerName"].toString(),
+                                style: TextStyle(fontSize: 15)),
+                                SizedBox(height: 5,),
+                              Text(product[indx]["reviews"][index]["date"].toString(),
+                                style: TextStyle(fontSize: 12),),
+                                SizedBox(height: 5,),
+                              Text(product[indx]["reviews"][index]["rating"].toString(),
+                                style: TextStyle(fontSize: 15),),
+                                SizedBox(height: 5,),
+                              Text(product[indx]["reviews"][index]["comment"].toString(),
+                                style: TextStyle(fontSize: 15)),
+                                SizedBox(height: 5,),
+                              Text(product[indx]["reviews"][index]["reviewerEmail"].toString(),
+                                style: TextStyle(fontSize: 12)),
+                                SizedBox(height: 5,),
+                            ],
+                          ),
+
+                        );
+                      },))),
+                  
                 ],
               ),
             ),
             Container(
-              height: 75,
+              height: 70,
               width: double.infinity,
               margin: EdgeInsets.all(1.5),
               decoration: BoxDecoration(
-                  color: Colors.teal[100],
+                  color: Colors.teal[50],
                   borderRadius: BorderRadius.circular(75)),
               child: Row(
                 children: [
                   Expanded(
                       child: TextButton(
-                        // style: textbut,
-                          onPressed: () {}, child: Text("Add to Cart"))),
+                        style: TextButton.styleFrom(
+                          backgroundColor: cart?Colors.teal[100]:Colors.teal[50],
+                          padding: EdgeInsets.only(top: 26,
+                          bottom: 26)
+                        ),
+                          onPressed: () {
+                            print("to Cart");
+                            setState(() {
+                              cart=true;
+                              shop=false;
+                            });
+                          }, child: Text("Add to Cart"))),
                   Expanded(
                       child: TextButton(
-                          onPressed: () {}, child: Text("Shop Now")))
+                         style: TextButton.styleFrom(
+                           backgroundColor: shop?Colors.teal[100]:Colors.teal[50],
+                          padding: EdgeInsets.only(top: 26,
+                          bottom: 26)
+                        ),
+                          onPressed: () {
+                            print("shoped");
+                            setState(() {
+                              cart=false;
+                            shop=true;
+                            });
+
+                          }, child: Text("Shop Now")))
                 ],
               ),
             )
