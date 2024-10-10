@@ -60,7 +60,8 @@ class _Page1State extends State<Page1> {
                     height: 45,
                     width: 45,
                     decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 214, 211, 211),
+                        // color: const Color.fromARGB(255, 214, 211, 211),
+                        color: Colors.teal[50],
                         borderRadius: BorderRadius.circular(100),
                         border: Border.all(width: 0.1)),
                     child: Icon(
@@ -88,7 +89,9 @@ class _Page1State extends State<Page1> {
                           labelText: "Search"),
                     )),
                   ),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.shop_outlined))
+                  IconButton(onPressed: () {
+                    Navigator.pushNamed(context, "cart");
+                  }, icon: Icon(Icons.shop_outlined))
                 ],
               ),
             ),

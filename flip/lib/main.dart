@@ -1,3 +1,4 @@
+import 'package:flip/cart.dart';
 import 'package:flip/page1.dart';
 import 'package:flip/product.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ void main() async {
     home: Page1(),
     routes: {
       "pro": (context) => Page2(),
+      "cart":(context)=>Page3()
     },
   ));
 }
