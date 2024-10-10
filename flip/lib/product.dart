@@ -83,7 +83,25 @@ class _Page2State extends State<Page2> {
                             labelText: "Search"),
                       )),
                     ),
-                    IconButton(onPressed: () {}, icon: Icon(Icons.shop_outlined))
+                    IconButton(onPressed: () {
+                       if(mybox.get(11)!=null){
+                    Navigator.pushNamed(context, "cart");
+                    }else{
+                      showDialog(context: context, builder: (context) {
+                        return Card(
+                         child:  AlertDialog(
+                          title: Text("OOPS!!!!"),
+                          content: Text("Empty Cart"),
+                          actions: [
+                            TextButton(onPressed: () {
+                              Navigator.pop(context); 
+                            }, child: Text("OK"))
+                          ],
+                         )
+                        );
+                      },);
+                    }
+                    }, icon: Icon(Icons.shop_outlined))
                   ],
                 ),
               ),
@@ -430,7 +448,12 @@ class _Page2State extends State<Page2> {
                               List ls =[];
                               if(mybox.get(11)!=null){
                                  ls=mybox.get(11);
+                                //  product[indx].add({
+                                //   "Qty":1
+                                //  }
+                                //  );
                                 ls.add(product[indx]);
+                                // ls[indx].add({"qty":1});
                                 mybox.put(11, ls);
                               }else{
                                  ls.add(product[indx]);

@@ -90,14 +90,30 @@ class _Page1State extends State<Page1> {
                     )),
                   ),
                   IconButton(onPressed: () {
+                    if(mybox.get(11)!=null){
                     Navigator.pushNamed(context, "cart");
+                    }else{
+                      showDialog(context: context, builder: (context) {
+                        return Card(
+                         child:  AlertDialog(
+                          title: Text("OOPS!!!!"),
+                          content: Text("Empty Cart"),
+                          actions: [
+                            TextButton(onPressed: () {
+                              Navigator.pop(context); 
+                            }, child: Text("OK"))
+                          ],
+                         )
+                        );
+                      },);
+                    }
                   }, icon: Icon(Icons.shop_outlined))
                 ],
               ),
             ),
             Container(
-              // height: 695,
-              height: 800,
+              height: 695,
+              // height: 800,
               width: double.infinity,
               padding: EdgeInsets.only(left: 10, right: 10),
               // color: Colors.red,
