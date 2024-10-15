@@ -23,11 +23,14 @@ class _Page1State extends State<Page1> {
 // ls=json.decode(res.body);
 // print(ls[0]["products"]);
     setState(() {
+
       items = ls[0]["products"];
     });
     mybox.put(1, items);
     print("k");
   }
+
+ 
 
   @override
   void initState() {
@@ -90,7 +93,8 @@ class _Page1State extends State<Page1> {
                     )),
                   ),
                   IconButton(onPressed: () {
-                    if(mybox.get(11)!=null){
+                    if(mybox.get(11)!= null){
+                      print(mybox.get(11));
                     Navigator.pushNamed(context, "cart");
                     }else{
                       showDialog(context: context, builder: (context) {

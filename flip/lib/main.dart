@@ -11,6 +11,7 @@ void main() async {
   runApp(MaterialApp(
     home: Page1(),
     routes: {
+      "p1":(context)=>Page1(),
       "pro": (context) => Page2(),
       "cart":(context)=>Page3()
     },

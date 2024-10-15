@@ -12,6 +12,7 @@ class _Page2State extends State<Page2> {
   // int indx = 7;
   final mybox = Hive.box('mybox');
   List product = [];
+  List item =[];
   bool cart = false;
   bool shop = false;
 
@@ -20,12 +21,21 @@ class _Page2State extends State<Page2> {
       product = mybox.get(1);
     });
   }
+  void getcart(){
+    if(mybox.get(11)!=null){
+      setState(() {
+        item=mybox.get(11);
+      });
+    }
+  }
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getdata();
+
   }
 
   @override
@@ -122,7 +132,7 @@ class _Page2State extends State<Page2> {
                           itemBuilder: (context, index) {
                           return Container(
                             height: 270,
-                            width: 280,
+                            width: 300,
                             color: Colors.white,
                             margin: EdgeInsets.only(left: 10,right: 10),
                             child: Image.network(product[indx]["images"][index],fit: BoxFit.contain,),
@@ -385,17 +395,20 @@ class _Page2State extends State<Page2> {
                     SizedBox(height: 10,),
                      Text("   Reviews:",style: TextStyle(fontSize: 18),),
                      Container(
-                        height: 300,
+                        height: 250,
                         width: double.infinity,
                         // alignment: Alignment.center,
                         padding: EdgeInsets.only(left: 20, right: 15),
                         child: Card(
-                          child: Expanded(child: ListView.builder(
+                          child: Expanded(
+                            child: ListView.builder(
                             itemCount: product[indx]["reviews"].length,
+                            scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) {
                             return Container(
-                              margin: EdgeInsets.only(top: 10,bottom: 10),
-                              padding: EdgeInsets.only(left: 10),
+                              width: 200,
+                              margin: EdgeInsets.only(right: 10,left: 15),
+                              padding: EdgeInsets.only(left: 10,right: 7,top: 7),
                               decoration: BoxDecoration(
                                 border: Border.all(width: 0.02),
                                 borderRadius: BorderRadius.circular(8)
@@ -404,27 +417,65 @@ class _Page2State extends State<Page2> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(product[indx]["reviews"][index]["reviewerName"].toString(),
-                                    style: TextStyle(fontSize: 15)),
-                                    SizedBox(height: 5,),
+                                    style: TextStyle(fontSize: 16)),
+                                    SizedBox(height: 8,),
                                   Text(product[indx]["reviews"][index]["date"].toString(),
                                     style: TextStyle(fontSize: 12),),
-                                    SizedBox(height: 5,),
-                                  Text(product[indx]["reviews"][index]["rating"].toString(),
-                                    style: TextStyle(fontSize: 15),),
-                                    SizedBox(height: 5,),
-                                  Text(product[indx]["reviews"][index]["comment"].toString(),
+                                    SizedBox(height: 8,),
+                                  Row(
+                                    children: [
+                                      Text("Rating: ",style: TextStyle(fontSize: 13),),
+                                      Text(product[indx]["reviews"][index]["rating"].toString(),
+                                        style: TextStyle(fontSize: 15),),
+                                    ],
+                                  ),
+                                    SizedBox(height: 8,),
+                                  Text(product[indx]["reviews"][index]["comment"],
                                     style: TextStyle(fontSize: 15)),
-                                    SizedBox(height: 5,),
+                                    SizedBox(height: 8,),
                                   Text(product[indx]["reviews"][index]["reviewerEmail"].toString(),
                                     style: TextStyle(fontSize: 12)),
-                                    SizedBox(height: 5,),
+                                    SizedBox(height: 8,),
                                 ],
                               ),
-                          
                             );
                           },)),
                         )),
-                    
+                    // SizedBox(height: 15,)
+                     SizedBox(height: 10,),
+                    Container(
+                        // height: 57,
+                        width: double.infinity,
+                        // alignment: Alignment.center,
+                        padding: EdgeInsets.only(left: 18, right: 15),
+                        child: Text(
+                          "Warrenty Details: ${product[indx]["warrantyInformation"]}",
+                          style: TextStyle(fontSize: 14.5),
+                          maxLines: 3,
+                        )),
+                        SizedBox(height: 10,),
+                    Container(
+                        // height: 57,
+                        width: double.infinity,
+                        // alignment: Alignment.center,
+                        padding: EdgeInsets.only(left: 18, right: 15),
+                        child: Text(
+                          "Created Deatils: ${product[indx]["meta"]["createdAt"]}",
+                          style: TextStyle(fontSize: 13.5),
+                          maxLines: 3,
+                        )),
+                         SizedBox(height: 8,),
+                          Container(
+                        // height: 57,
+                        width: double.infinity,
+                        // alignment: Alignment.center,
+                        padding: EdgeInsets.only(left: 18, right: 15),
+                        child: Text(
+                          "Created Deatils: ${product[indx]["meta"]["updatedAt"]}",
+                          style: TextStyle(fontSize: 13.5),
+                          maxLines: 3,
+                        )),
+                         SizedBox(height: 10,),
                   ],
                 ),
               ),

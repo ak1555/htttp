@@ -1,6 +1,6 @@
-import 'dart:math';
+// import 'dart:math';
 
-import 'package:flip/page1.dart';
+// import 'package:flip/page1.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
@@ -19,13 +19,22 @@ class _Page3State extends State<Page3> {
     setState(() {
       item= mybox.get(11);
     });
-    print(item);
+    print(item[0]["id"]);
+  }
+     void addqty(){
+    int indx =0;
+  for(int i=0;i<item.length;i++){
+    item[indx][0].add({"qty":1});
+    indx++;
+  print(item);
+  }
   }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     gtdata();
+    // addqty();
   }
   @override
   Widget build(BuildContext context) {
@@ -175,13 +184,19 @@ class _Page3State extends State<Page3> {
                     backgroundColor: Colors.greenAccent[300]
                   ),
                   onPressed: () {
+                    // int cash=0;
+                    // int inx=0;
+                    // for(int i=0;i<=item.length;i++){
+                    //   cash += int.parse(item[inx]["price"]);
+                    //   inx++;
+                    // }
                   showDialog(context: context, builder: (context) {
                     return Card(
                       child: AlertDialog(
                         title: Text("Thank You"),
                         content:Row(
                           children: [
-                            Text("You Purchased For Rs:100"),
+                            Text("You Purchased For Rs:10.00"),
                           ],
                         ),
                         actions: [
@@ -192,7 +207,8 @@ class _Page3State extends State<Page3> {
                           TextButton(onPressed: () {
                           List l=[];
                           mybox.put(11, l);
-                          Navigator.popUntil(context, ModalRoute.withName("pro"));
+                          // Navigator.popUntil(context, ModalRoute.withName("pro"));
+                          Navigator.pushNamed(context, "p1");
                         }, child: Text("OK"))
                         
                         ],
