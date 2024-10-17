@@ -12,30 +12,30 @@ class _Page2State extends State<Page2> {
   // int indx = 7;
   final mybox = Hive.box('mybox');
   List product = [];
-  List item =[];
+  List item = [];
   bool cart = false;
   bool shop = false;
+  bool isShop = false;
 
   void getdata() {
     setState(() {
       product = mybox.get(1);
     });
   }
-  void getcart(){
-    if(mybox.get(11)!=null){
+
+  void getcart() {
+    if (mybox.get(11) != null) {
       setState(() {
-        item=mybox.get(11);
+        item = mybox.get(11);
       });
     }
   }
-
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getdata();
-
   }
 
   @override
@@ -93,58 +93,76 @@ class _Page2State extends State<Page2> {
                             labelText: "Search"),
                       )),
                     ),
-                    IconButton(onPressed: () {
-                       if(mybox.get(11)!=null){
-                    Navigator.pushNamed(context, "cart");
-                    }else{
-                      showDialog(context: context, builder: (context) {
-                        return Card(
-                         child:  AlertDialog(
-                          title: Text("OOPS!!!!"),
-                          content: Text("Empty Cart"),
-                          actions: [
-                            TextButton(onPressed: () {
-                              Navigator.pop(context); 
-                            }, child: Text("OK"))
-                          ],
-                         )
-                        );
-                      },);
-                    }
-                    }, icon: Icon(Icons.shop_outlined))
+                    IconButton(
+                        onPressed: () {
+                          if (mybox.get(11) != null) {
+                            Navigator.pushNamed(context, "cart");
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return Card(
+                                    child: AlertDialog(
+                                  title: Text("OOPS!!!!"),
+                                  content: Text("Empty Cart"),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text("OK"))
+                                  ],
+                                ));
+                              },
+                            );
+                          }
+                        },
+                        icon: Icon(Icons.shopping_cart_checkout_sharp))
                   ],
                 ),
               ),
               Expanded(
                 child: ListView(
                   children: [
-                    SizedBox(height: 8,),
+                    SizedBox(
+                      height: 8,
+                    ),
                     Card(
                       child: Container(
                         height: 270,
                         width: double.infinity,
-                        padding: EdgeInsets.only(left: 18, right: 15,bottom: 18),
-                        margin: EdgeInsets.only(left: 15,right: 15),
+                        padding:
+                            EdgeInsets.only(left: 18, right: 15, bottom: 18),
+                        margin: EdgeInsets.only(left: 15, right: 15),
                         // child: Image.network(product[indx]["thumbnail"]),
-                         child: Expanded(child: ListView.builder(
+                        child: Expanded(
+                            child: ListView.builder(
                           itemCount: product[indx]["images"].length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
-                          return Container(
-                            height: 270,
-                            width: 300,
-                            color: Colors.white,
-                            margin: EdgeInsets.only(left: 10,right: 10),
-                            child: Image.network(product[indx]["images"][index],fit: BoxFit.contain,),
-                          );
-                        },)),
+                            return Container(
+                              height: 270,
+                              width: 300,
+                              color: Colors.white,
+                              margin: EdgeInsets.only(left: 10, right: 10),
+                              child: Image.network(
+                                product[indx]["images"][index],
+                                fit: BoxFit.contain,
+                              ),
+                            );
+                          },
+                        )),
                       ),
                     ),
-                    SizedBox(height: 8,),
+                    SizedBox(
+                      height: 8,
+                    ),
                     Card(
                       child: Column(
                         children: [
-                          SizedBox(height: 5,),
+                          SizedBox(
+                            height: 5,
+                          ),
                           Container(
                               height: 20,
                               width: double.infinity,
@@ -167,7 +185,8 @@ class _Page2State extends State<Page2> {
                                 Text(
                                   "\$ ",
                                   style: TextStyle(
-                                      fontWeight: FontWeight.bold, fontSize: 23.5),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 23.5),
                                 ),
                                 Text(
                                   product[indx]["price"].toString(),
@@ -186,7 +205,8 @@ class _Page2State extends State<Page2> {
                                       "${product[indx]["price"] / product[indx]["discountPercentage"]}",
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
-                                          fontSize: 20, fontWeight: FontWeight.bold),
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
                                     ))
                               ],
                             ),
@@ -208,15 +228,21 @@ class _Page2State extends State<Page2> {
                               width: double.infinity,
                               // alignment: Alignment.center,
                               padding: EdgeInsets.only(left: 18, right: 15),
-                              child:product[indx]["brand"]!=null? Text(product[indx]["brand"]):
-                              Text("Food Materials",style: TextStyle(),)),
-                               SizedBox(
-                      height: 10,
-                    ),
+                              child: product[indx]["brand"] != null
+                                  ? Text(product[indx]["brand"])
+                                  : Text(
+                                      "Food Materials",
+                                      style: TextStyle(),
+                                    )),
+                          SizedBox(
+                            height: 10,
+                          ),
                         ],
                       ),
                     ),
-                   SizedBox(height: 5,),
+                    SizedBox(
+                      height: 5,
+                    ),
                     Container(
                         height: 20,
                         width: double.infinity,
@@ -250,9 +276,14 @@ class _Page2State extends State<Page2> {
                                   //   color: Colors.green,
                                   //   size: 23,
                                   // ),
-                                     SizedBox(width: 5,),
-                                           Text(product[indx]["rating"].toString(),
-                                           style: TextStyle(fontWeight: FontWeight.bold,height: 2),)
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    product[indx]["rating"].toString(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold, height: 2),
+                                  )
                                 ],
                               )
                             : product[indx]["rating"] > 3
@@ -278,9 +309,15 @@ class _Page2State extends State<Page2> {
                                       //   color: Colors.amber,
                                       //   size: 23,
                                       // ),
-                                        SizedBox(width: 5,),
-                                           Text(product[indx]["rating"].toString(),
-                                           style: TextStyle(fontWeight: FontWeight.bold,height: 2),)
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        product[indx]["rating"].toString(),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            height: 2),
+                                      )
                                     ],
                                   )
                                 : product[indx]["rating"] > 2
@@ -301,9 +338,15 @@ class _Page2State extends State<Page2> {
                                           //   color: Colors.orange,
                                           //   size: 23,
                                           // ),
-                                          SizedBox(width: 5,),
-                                           Text(product[indx]["rating"].toString(),
-                                           style: TextStyle(fontWeight: FontWeight.bold,height: 2),)
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          Text(
+                                            product[indx]["rating"].toString(),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                height: 2),
+                                          )
                                         ],
                                       )
                                     : product[indx]["rating"] > 1
@@ -319,18 +362,33 @@ class _Page2State extends State<Page2> {
                                               //   color: Colors.red,
                                               //   size: 23,
                                               // ),
-                                                SizedBox(width: 5,),
-                                           Text(product[indx]["rating"].toString(),
-                                           style: TextStyle(fontWeight: FontWeight.bold,height: 2),)
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(
+                                                product[indx]["rating"]
+                                                    .toString(),
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    height: 2),
+                                              )
                                             ],
                                           )
                                         : product[indx]["rating"] > 0
                                             ? Row(
                                                 children: [
                                                   Icon(Icons.star),
-                                                    SizedBox(width: 5,),
-                                           Text(product[indx]["rating"].toString(),
-                                           style: TextStyle(fontWeight: FontWeight.bold,height: 2),)
+                                                  SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                  Text(
+                                                    product[indx]["rating"]
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        height: 2),
+                                                  )
                                                 ],
                                               )
                                             : Icon(Icons.star)),
@@ -373,16 +431,27 @@ class _Page2State extends State<Page2> {
                           style: TextStyle(fontSize: 13.5),
                           maxLines: 3,
                         )),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Container(
                         // height: 57,
                         width: double.infinity,
                         // alignment: Alignment.center,
                         padding: EdgeInsets.only(left: 18, right: 15),
-                        child: Text(
-                          "Return Policy: ${product[indx]["returnPolicy"]}",
-                          style: TextStyle(fontSize: 13.5),
-                          maxLines: 3,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Return Policy: ${product[indx]["returnPolicy"]}",
+                              style: TextStyle(fontSize: 13.5),
+                              maxLines: 3,
+                            ),
+                            Icon(
+                              Icons.keyboard_arrow_right_sharp,
+                              color: Colors.grey,
+                            ),
+                          ],
                         )),
                     // SizedBox(height: 10),
                     // Text("   Related Images",style: TextStyle(fontSize: 18),),
@@ -390,92 +459,162 @@ class _Page2State extends State<Page2> {
                     //   height: 210,
                     //   width: double.infinity,
                     //   // color: Colors.pink,
-                     
+
                     // ),
-                    SizedBox(height: 10,),
-                     Text("   Reviews:",style: TextStyle(fontSize: 18),),
-                     Container(
-                        height: 250,
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "   Reviews:",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    Container(
+                        height: 220,
                         width: double.infinity,
                         // alignment: Alignment.center,
+                        color: Colors.white,
                         padding: EdgeInsets.only(left: 20, right: 15),
                         child: Card(
                           child: Expanded(
-                            child: ListView.builder(
+                              child: ListView.builder(
                             itemCount: product[indx]["reviews"].length,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) {
-                            return Container(
-                              width: 200,
-                              margin: EdgeInsets.only(right: 10,left: 15),
-                              padding: EdgeInsets.only(left: 10,right: 7,top: 7),
-                              decoration: BoxDecoration(
-                                border: Border.all(width: 0.02),
-                                borderRadius: BorderRadius.circular(8)
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(product[indx]["reviews"][index]["reviewerName"].toString(),
-                                    style: TextStyle(fontSize: 16)),
-                                    SizedBox(height: 8,),
-                                  Text(product[indx]["reviews"][index]["date"].toString(),
-                                    style: TextStyle(fontSize: 12),),
-                                    SizedBox(height: 8,),
-                                  Row(
-                                    children: [
-                                      Text("Rating: ",style: TextStyle(fontSize: 13),),
-                                      Text(product[indx]["reviews"][index]["rating"].toString(),
-                                        style: TextStyle(fontSize: 15),),
-                                    ],
-                                  ),
-                                    SizedBox(height: 8,),
-                                  Text(product[indx]["reviews"][index]["comment"],
-                                    style: TextStyle(fontSize: 15)),
-                                    SizedBox(height: 8,),
-                                  Text(product[indx]["reviews"][index]["reviewerEmail"].toString(),
-                                    style: TextStyle(fontSize: 12)),
-                                    SizedBox(height: 8,),
-                                ],
-                              ),
-                            );
-                          },)),
+                              return Container(
+                                width: 210,
+                                margin: EdgeInsets.only(right: 10, left: 15),
+                                padding: EdgeInsets.only(
+                                    left: 10, right: 7, top: 10),
+                                decoration: BoxDecoration(
+                                    border: Border.all(width: 0.02),
+                                    borderRadius: BorderRadius.circular(8)),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                        product[indx]["reviews"][index]
+                                                ["reviewerName"]
+                                            .toString(),
+                                        style: TextStyle(fontSize: 16)),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text(
+                                      product[indx]["reviews"][index]["date"]
+                                          .toString(),
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Rating: ",
+                                          style: TextStyle(fontSize: 13),
+                                        ),
+                                        Text(
+                                          product[indx]["reviews"][index]
+                                                  ["rating"]
+                                              .toString(),
+                                          style: TextStyle(fontSize: 15),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text(
+                                        product[indx]["reviews"][index]
+                                            ["comment"],
+                                        style: TextStyle(fontSize: 15)),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text(
+                                        product[indx]["reviews"][index]
+                                                ["reviewerEmail"]
+                                            .toString(),
+                                        style: TextStyle(fontSize: 12)),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          )),
                         )),
                     // SizedBox(height: 15,)
-                     SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Container(
                         // height: 57,
                         width: double.infinity,
                         // alignment: Alignment.center,
                         padding: EdgeInsets.only(left: 18, right: 15),
-                        child: Text(
-                          "Warrenty Details: ${product[indx]["warrantyInformation"]}",
-                          style: TextStyle(fontSize: 14.5),
-                          maxLines: 3,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Warrenty Details: ${product[indx]["warrantyInformation"]}",
+                              style: TextStyle(fontSize: 14.5),
+                              maxLines: 3,
+                            ),
+                            Icon(
+                              Icons.keyboard_arrow_right_sharp,
+                              color: Colors.grey,
+                            ),
+                          ],
                         )),
-                        SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Container(
                         // height: 57,
                         width: double.infinity,
                         // alignment: Alignment.center,
                         padding: EdgeInsets.only(left: 18, right: 15),
-                        child: Text(
-                          "Created Deatils: ${product[indx]["meta"]["createdAt"]}",
-                          style: TextStyle(fontSize: 13.5),
-                          maxLines: 3,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Created Deatils: ${product[indx]["meta"]["createdAt"]}",
+                              style: TextStyle(fontSize: 13),
+                              maxLines: 3,
+                            ),
+                            Icon(
+                              Icons.keyboard_arrow_right_sharp,
+                              color: Colors.grey,
+                            ),
+                          ],
                         )),
-                         SizedBox(height: 8,),
-                          Container(
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Container(
                         // height: 57,
                         width: double.infinity,
                         // alignment: Alignment.center,
                         padding: EdgeInsets.only(left: 18, right: 15),
-                        child: Text(
-                          "Created Deatils: ${product[indx]["meta"]["updatedAt"]}",
-                          style: TextStyle(fontSize: 13.5),
-                          maxLines: 3,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Created Deatils: ${product[indx]["meta"]["updatedAt"]}",
+                              style: TextStyle(fontSize: 13),
+                              maxLines: 3,
+                            ),
+                            Icon(
+                              Icons.keyboard_arrow_right_sharp,
+                              color: Colors.grey,
+                            ),
+                          ],
                         )),
-                         SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                   ],
                 ),
               ),
@@ -483,54 +622,87 @@ class _Page2State extends State<Page2> {
                 height: 70,
                 width: double.infinity,
                 margin: EdgeInsets.all(1.5),
-                decoration: BoxDecoration(
-                    color: Colors.teal[50],
-                    borderRadius: BorderRadius.circular(75)),
+                // decoration: BoxDecoration(
+                //     color: Colors.teal[50],
+                //     borderRadius: BorderRadius.circular(75)),
                 child: Row(
                   children: [
                     Expanded(
-                        child: TextButton(
-                          style: TextButton.styleFrom(
-                            backgroundColor: cart?Colors.teal[100]:Colors.teal[50],
-                            padding: EdgeInsets.only(top: 26,
-                            bottom: 26)
-                          ),
-                            onPressed: () {
-                              List ls =[];
-                              if(mybox.get(11)!=null){
-                                 ls=mybox.get(11);
-                                //  product[indx].add({
-                                //   "Qty":1
-                                //  }
-                                //  );
-                                ls.add(product[indx]);
-                                // ls[indx].add({"qty":1});
-                                mybox.put(11, ls);
-                              }else{
-                                 ls.add(product[indx]);
-                                mybox.put(11, ls);
-                              }
-                              
-                              setState(() {
-                                cart=true;
-                                shop=false;
-                              });
-                            }, child: Text("Add to Cart"))),
+                        child: isShop
+                            ? TextButton(
+                                style: TextButton.styleFrom(
+                                    // backgroundColor: cart?Colors.teal[100]:Colors.teal[50],
+                                    shape: BeveledRectangleBorder(
+                                        borderRadius: BorderRadius.circular(0)),
+                                    backgroundColor: Colors.white,
+                                    padding:
+                                        EdgeInsets.only(top: 26, bottom: 26)),
+                                onPressed: () {
+                                  Navigator.pushNamed(context, "cart");
+                                },
+                                child: Text(
+                                  "Go to Cart",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ))
+                            : TextButton(
+                                style: TextButton.styleFrom(
+                                    // backgroundColor: cart?Colors.teal[100]:Colors.teal[50],
+                                    shape: BeveledRectangleBorder(
+                                        borderRadius: BorderRadius.circular(0)),
+                                    backgroundColor: Colors.white,
+                                    padding:
+                                        EdgeInsets.only(top: 26, bottom: 26)),
+                                onPressed: () {
+                                  List ls = [];
+                                  if (mybox.get(11) != null) {
+                                    ls = mybox.get(11);
+                                    //  product[indx].add({
+                                    //   "Qty":1
+                                    //  }
+                                    //  );
+                                    ls.add(product[indx]);
+                                    // ls[indx].add({"qty":1});
+                                    mybox.put(11, ls);
+                                  } else {
+                                    ls.add(product[indx]);
+                                    mybox.put(11, ls);
+                                  }
+
+                                  setState(() {
+                                    cart = true;
+                                    shop = false;
+                                  });
+                                  isShop = true;
+                                },
+                                child: Text(
+                                  "Add to Cart",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ))),
                     Expanded(
                         child: TextButton(
-                           style: TextButton.styleFrom(
-                             backgroundColor: shop?Colors.teal[100]:Colors.teal[50],
-                            padding: EdgeInsets.only(top: 26,
-                            bottom: 26)
-                          ),
+                            style: TextButton.styleFrom(
+                                //  backgroundColor: shop?Colors.teal[100]:Colors.teal[50],
+                                shape: BeveledRectangleBorder(
+                                    borderRadius: BorderRadius.circular(0)),
+                                backgroundColor: Colors.amber[800],
+                                padding: EdgeInsets.only(top: 26, bottom: 26)),
                             onPressed: () {
                               print("shoped");
                               setState(() {
-                                cart=false;
-                              shop=true;
+                                cart = false;
+                                shop = true;
                               });
-          
-                            }, child: Text("Shop Now")))
+                            },
+                            child: Text(
+                              "Shop Now",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            )))
                   ],
                 ),
               )

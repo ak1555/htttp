@@ -23,14 +23,11 @@ class _Page1State extends State<Page1> {
 // ls=json.decode(res.body);
 // print(ls[0]["products"]);
     setState(() {
-
       items = ls[0]["products"];
     });
     mybox.put(1, items);
     print("k");
   }
-
- 
 
   @override
   void initState() {
@@ -92,26 +89,32 @@ class _Page1State extends State<Page1> {
                           labelText: "Search"),
                     )),
                   ),
-                  IconButton(onPressed: () {
-                    if(mybox.get(11)!= null){
-                      print(mybox.get(11));
-                    Navigator.pushNamed(context, "cart");
-                    }else{
-                      showDialog(context: context, builder: (context) {
-                        return Card(
-                         child:  AlertDialog(
-                          title: Text("OOPS!!!!"),
-                          content: Text("Empty Cart"),
-                          actions: [
-                            TextButton(onPressed: () {
-                              Navigator.pop(context); 
-                            }, child: Text("OK"))
-                          ],
-                         )
-                        );
-                      },);
-                    }
-                  }, icon: Icon(Icons.shop_outlined))
+                  IconButton(
+                      onPressed: () {
+                        if (mybox.get(11) != null) {
+                          print(mybox.get(11));
+                          Navigator.pushNamed(context, "cart");
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return Card(
+                                  child: AlertDialog(
+                                title: Text("OOPS!!!!"),
+                                content: Text("Empty Cart"),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text("OK"))
+                                ],
+                              ));
+                            },
+                          );
+                        }
+                      },
+                      icon: Icon(Icons.shopping_cart_checkout_sharp))
                 ],
               ),
             ),
