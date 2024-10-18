@@ -52,8 +52,8 @@ class _Page3State extends State<Page3> {
               fontWeight: FontWeight.bold),),
             ),
             Container(
-              // height: 800,
-              height: 630,
+              height: 740,
+              // height: 630,
               width: double.infinity,
               padding: EdgeInsets.only(left: 8,right: 8),
               child: Card(
@@ -196,7 +196,7 @@ class _Page3State extends State<Page3> {
                         title: Text("Thank You"),
                         content:Row(
                           children: [
-                            Text("You Purchased For Rs:10.00"),
+                            Text("You Purchased For Rs:80.00"),
                           ],
                         ),
                         actions: [

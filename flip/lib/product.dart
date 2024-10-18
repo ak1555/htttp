@@ -472,8 +472,8 @@ class _Page2State extends State<Page2> {
                         height: 220,
                         width: double.infinity,
                         // alignment: Alignment.center,
-                        color: Colors.white,
-                        padding: EdgeInsets.only(left: 20, right: 15),
+                        // color: Colors.white,
+                        padding: EdgeInsets.only(left: 15, right: 15),
                         child: Card(
                           child: Expanded(
                               child: ListView.builder(
@@ -481,11 +481,12 @@ class _Page2State extends State<Page2> {
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) {
                               return Container(
-                                width: 210,
-                                margin: EdgeInsets.only(right: 10, left: 15),
+                                width: 225,
+                                margin: EdgeInsets.only(right: 8, left: 10),
                                 padding: EdgeInsets.only(
                                     left: 10, right: 7, top: 10),
                                 decoration: BoxDecoration(
+                                  color: Colors.white54,
                                     border: Border.all(width: 0.02),
                                     borderRadius: BorderRadius.circular(8)),
                                 child: Column(
@@ -495,49 +496,50 @@ class _Page2State extends State<Page2> {
                                         product[indx]["reviews"][index]
                                                 ["reviewerName"]
                                             .toString(),
-                                        style: TextStyle(fontSize: 16)),
+                                        style: TextStyle(fontSize: 19,fontWeight: FontWeight.w400)),
                                     SizedBox(
-                                      height: 8,
+                                      height: 20,
                                     ),
+                                    
                                     Text(
                                       product[indx]["reviews"][index]["date"]
                                           .toString(),
-                                      style: TextStyle(fontSize: 12),
+                                      style: TextStyle(fontSize: 12.5),
                                     ),
                                     SizedBox(
-                                      height: 8,
+                                      height: 10,
                                     ),
                                     Row(
                                       children: [
                                         Text(
                                           "Rating: ",
-                                          style: TextStyle(fontSize: 13),
+                                          style: TextStyle(fontSize: 13.5),
                                         ),
                                         Text(
                                           product[indx]["reviews"][index]
                                                   ["rating"]
                                               .toString(),
-                                          style: TextStyle(fontSize: 15),
+                                          style: TextStyle(fontSize: 15.5),
                                         ),
                                       ],
                                     ),
                                     SizedBox(
-                                      height: 8,
+                                      height: 10,
                                     ),
                                     Text(
                                         product[indx]["reviews"][index]
                                             ["comment"],
-                                        style: TextStyle(fontSize: 15)),
+                                        style: TextStyle(fontSize: 15.5)),
                                     SizedBox(
-                                      height: 8,
+                                      height: 10,
                                     ),
                                     Text(
                                         product[indx]["reviews"][index]
                                                 ["reviewerEmail"]
                                             .toString(),
-                                        style: TextStyle(fontSize: 12)),
+                                        style: TextStyle(fontSize: 12.5)),
                                     SizedBox(
-                                      height: 8,
+                                      height: 10,
                                     ),
                                   ],
                                 ),
@@ -691,11 +693,36 @@ class _Page2State extends State<Page2> {
                                 backgroundColor: Colors.amber[800],
                                 padding: EdgeInsets.only(top: 26, bottom: 26)),
                             onPressed: () {
-                              print("shoped");
-                              setState(() {
-                                cart = false;
-                                shop = true;
-                              });
+                              // print("shoped");
+                              // setState(() {
+                              //   cart = false;
+                              //   shop = true;
+                              // });
+                              showDialog(context: context, builder: (context) {
+                    return Card(
+                      child: AlertDialog(
+                        title: Text("Thank You"),
+                        content:Row(
+                          children: [
+                            Text("You Purchased For Rs:10.00"),
+                          ],
+                        ),
+                        actions: [
+                           TextButton(onPressed: () {
+                          Navigator.pop(context);
+                        }, child: Text("CANCEL")),
+
+                          TextButton(onPressed: () {
+                          List l=[];
+                          mybox.put(11, l);
+                          // Navigator.popUntil(context, ModalRoute.withName("pro"));
+                          Navigator.pushNamed(context, "p1");
+                        }, child: Text("OK"))
+                        
+                        ],
+                      ),
+                    );
+                  },);
                             },
                             child: Text(
                               "Shop Now",

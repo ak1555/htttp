@@ -119,8 +119,8 @@ class _Page1State extends State<Page1> {
               ),
             ),
             Container(
-              height: 695,
-              // height: 800,
+              // height: 695,
+              height: 800,
               width: double.infinity,
               padding: EdgeInsets.only(left: 10, right: 10),
               // color: Colors.red,
@@ -140,10 +140,10 @@ class _Page1State extends State<Page1> {
                           arguments: index.toString());
                     },
                     child: Card(
-                      child: Column(
+                      child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Container(
-                            height: 103,
+                            height: 120,
                             width: double.infinity,
                             // margin: EdgeInsets.all(2.5),
                             decoration: BoxDecoration(
@@ -152,7 +152,7 @@ class _Page1State extends State<Page1> {
                             ),
                             child: Image.network(items[index]["images"][0]),
                           ),
-                          // SizedBox(height: 5,),
+                          SizedBox(height: 1,),
                           Container(
                               height: 25,
                               width: double.infinity,
@@ -162,9 +162,9 @@ class _Page1State extends State<Page1> {
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16),
+                                    fontWeight: FontWeight.bold, fontSize: 16.5),
                               )),
-                          // SizedBox(height: 10,),
+                          SizedBox(height: 10,),
                           Container(
                             height: 18,
                             width: double.infinity,
@@ -173,9 +173,10 @@ class _Page1State extends State<Page1> {
                               children: [
                                 Text(
                                   "Category:  ",
-                                  style: TextStyle(fontSize: 12),
+                                  style: TextStyle(fontSize: 12.5),
                                 ),
-                                Text("${items[index]["category"]}"),
+                                Text("${items[index]["category"]}",
+                                  style: TextStyle(fontSize: 14.5),),
                               ],
                             ),
                           ),
@@ -200,7 +201,7 @@ class _Page1State extends State<Page1> {
                                   items[index]["price"].toString(),
                                   style: TextStyle(
                                     decoration: TextDecoration.lineThrough,
-                                    fontSize: 13,
+                                    fontSize: 13.5,
                                     // fontWeight: FontWeight.bold
                                   ),
                                 ),
@@ -213,7 +214,7 @@ class _Page1State extends State<Page1> {
                                       "${items[index]["price"] / items[index]["discountPercentage"]}",
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
-                                          fontSize: 16,
+                                          fontSize: 16.5,
                                           fontWeight: FontWeight.bold),
                                     ))
                               ],
@@ -236,7 +237,7 @@ class _Page1State extends State<Page1> {
                                   style: TextStyle(
                                       fontWeight: FontWeight.w500,
                                       color: Colors.grey.shade800,
-                                      fontSize: 14),
+                                      fontSize: 14.5),
                                 ),
                                 Icon(
                                   Icons.arrow_downward,
@@ -300,7 +301,7 @@ class _Page1State extends State<Page1> {
                             padding: EdgeInsets.only(left: 15, right: 10),
                             child: Text(
                               "Stock Left:  ${items[index]["stock"]}",
-                              style: TextStyle(fontSize: 11),
+                              style: TextStyle(fontSize: 11.5),
                             ),
                           ),
                           SizedBox(
@@ -314,9 +315,10 @@ class _Page1State extends State<Page1> {
                               "  ${items[index]["shippingInformation"]}",
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
-                              style: TextStyle(fontSize: 12),
+                              style: TextStyle(fontSize: 12.5),
                             ),
                           ),
+                          SizedBox(height: 3,)
                         ],
                       ),
                     ),
